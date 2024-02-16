@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | NotesBook - A Simple notebook app</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" style=" overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">MyNotesBook</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+            <div class="d-flex" role="search">
+              <a href="/login"><button class="btn btn-outline-success mx-2" type="submit">Login</button></a>
+              <a href="/signup"> <button class="btn btn-outline-success mx-2" type="submit">Signup</button></a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">  
+        <h1 class="my-4">Login</h1>
+        <div>
+            <div class="mb-3" style="width: 50%;">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3" style="width: 50%;">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password">
+              <i class="bi bi-eye-slash" id="togglePassword" onclick="myFunction()"></i>
+            </div>
+            <button id="submit" type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <p>Dont have an account?<a href="/signup">Signup</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      
+    <script>
+        async function postData(url = '', data = {}) {
+            // Default options are marked with
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify (data)
+            });
+            let rdata = await response.json();
+            return rdata
+        }
+
+        const user = JSON.parse(localStorage.getItem('user'))
+
+        let submit = document.getElementById("submit")
+
+        // if (user && user.email){
+
+          submit.addEventListener("click", async ()=>{
+              let email = document.getElementById("email").value 
+              let password = document.getElementById("password").value
+              console.log("Submitting this data", password, email)
+              let response = await postData("/login",{email,password})
+              console.log(response)
+              if(response.success){
+                  alert("You are now logged in!")
+                  localStorage.setItem("user", JSON.stringify(response.user))
+                  document.getElementById("email").value = ""
+                  document.getElementById("password").value = ""
+                  window.location = '/'
+              }
+              else
+              {
+                alert("No user found!")
+                window.location = 'signup'
+              }
+          })
+        // }
+        // else
+        // {
+        //   alert("No user found!")
+        //   window.Location = "/signup"
+        // }
+    //   function myFunction() {
+    //   var x = document.getElementById("password");
+    //   if (x.type === "password") {
+    //     x.type = "text";
+    //   } else {
+    //     x.type = "password";
+    //   }
+    // }
+      
+    const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+        
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+        </script>
+    
+    </body>
+</html>

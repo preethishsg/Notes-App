@@ -1,0 +1,180 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* * {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+} */
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #e01111;
+}
+
+
+/* .navbar . {
+  position: fixed;
+  top: 0;
+  width: 100%;
+} */
+ body {
+  height: 100vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+ }
+  /* background: #4285F4;
+  font-size: medium ;
+}*/
+.container {
+  justify-content: center;
+  align-items: center; 
+  margin: 0 auto; 
+  width: 300px;
+  background: #ec0d0d;
+  align-items: center; 
+  justify-content: center; 
+  /* text-align:center; 
+  vertical-align: middle; 
+  padding: 10px;
+  border-radius: 30px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+.container .mb-3 {
+  height: 100%;
+  width: 30%;
+  /* vertical-align: middle; */
+  align:center;
+  justify-content: center;
+  /* text-align:center;  */
+  position: relative;
+}
+.container input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  /* text-align:center;
+  align:center;
+  justify-content: center; */
+  padding: 0 17px;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+.container input:focus {
+  padding: 0 16px;
+  border: 2px solid #17ec46;
+}
+.container i {
+  right: 18px;
+  bottom: 100%;
+  top: 50%;
+  font-size: 1.2rem;
+  color: #2e0bf5;
+  cursor: pointer;
+  position: absolute;
+  display: inline-block;
+  transform: translateY(-50%);
+}
+
+
+/* .container .password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+.password .password-toggle-icon i {
+  font-size: 18px;
+  line-height: 1;
+  color: #333;
+  transition: color 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.password .password-toggle-icon i:hover {
+  color: #000;
+} */
+
+
+.container .content {
+  margin: 20px 10px 10px;
+}
+ .content p {
+  color: #333;
+  font-size: large;
+}
+.content .requirement-list {
+  margin-top: 20px;
+  margin-left: -20px;
+}
+.requirement-list li {
+  font-size: medium;
+  list-style: circle;
+  display: flex;
+  align-items: center;
+}
+.requirement-list li i {
+  width: 20px;
+  color: #ff0707;
+  font-size: 0.6rem;
+}
+.requirement-list li.valid i {
+  font-size: 1.2rem;
+  color: #06f512;
+}
+.requirement-list li span {
+  margin-left: 12px;
+  color: #f70707;
+}
+.requirement-list li.valid span {
+  color: #0ef306;
+}
+
+/* @media screen and (max-width: 500px) {
+  body, .container {
+    padding: 15px;
+    font-size:xx-small;
+  }
+  .containr .password {
+    height: 55px;
+  }
+  .password input, .content p  {
+    font-size: 1.15rem;
+  }
+  .password i, .requirement-list li {
+    font-size: 1.1rem;
+  }
+  .requirement-list li span {
+    margin-left: 7px;
+  } 
+}*/
+
+/* Style the eye icon */
+/* #togglePassword {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.mb-3 {
+  position: relative;
+}
+
+.mb-3 i {
+  position: absolute;
+  right: 10px;
+  top: 30%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}  */ */

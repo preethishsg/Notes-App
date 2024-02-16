@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NotesBook - A Simple notebook app</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">MyNotesBook</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+            <div class="d-flex" role="search">
+              <a href="/login"><button class="btn btn-success mx-2" type="submit">Login</button></a>
+              <a href="/signup"> <button class="btn btn-success mx-2" type="submit">Signup</button></a>
+              <a href="/"> <button class="btn btn-success mx-2" type="submit">Logout</button></a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="Wlcm"></div>
+      <div class="container">
+
+          <h2 class="my-4">Add a note</h2>
+          <div>
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="txt" class="form-control" id="title" aria-describedby="titleHelp">
+                <div id="titleHelp" class="form-text">Try to add catchy file</div>
+              </div>
+              <div class="mb-3">
+                <label for="desc" class="form-label">Description</label>
+                <textarea type="text" class="form-control" id="desc"></textarea>
+              </div>
+              <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <h1 class="my-2">My Notes</h1>
+          <div class="MyNotes row"> 
+        
+
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      
+      <script>
+          async function postData(url = '', data = {}) {
+              // Default options are marked with *
+              const response = await fetch(url, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json' 
+                  },
+                  body: JSON.stringify (data)
+              });
+              let rdata = await response.json();
+              return rdata
+          }
+          // Fetch all the notes I
+          const fetchNotes = ()=>{
+
+            const user = JSON.parse(localStorage.getItem('user'))
+              // TODO: Enable this redirection
+              // if(!user || !user.token){
+              // window. Location = "/Login"
+          // }
+
+            if (user && user.email){
+              
+              let noteContainer = document.querySelector(".MyNotes")
+              noteContainer.innerHTML = ""
+              const notes = postData('/getnotes', {email: user.email})
+              notes.then((notes) =>{
+                console.log("Notes", notes.notes)
+              //    populate the notes
+
+                notes.notes.forEach(element => {     
+              
+                  let notes = `
+                  <div class="card mx-2 my-2" style="width: 18rem;">
+                      <div class="card-body">
+                      <h5 class="card-title">${element.title}e</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">Important notes</h6>
+                      <p class="card-text">${element.desc}</p>
+                      <a href="#" class="card-link">Delete</a>
+                      </div>
+                  </div>`
+
+                  noteContainer.innerHTML += notes
+
+                });
+
+            })
+          }
+          else{
+              alert("Please login first")
+          }
+      }
+      fetchNotes()
+
+      // Add a click Listener for Submit
+      let submit = document.getElementById("submit")
+      submit.addEventListener("click", async()=>{
+          let title = document.getElementById("title").value
+          let desc = document.getElementById("desc").value
+          let email = JSON.parse(localStorage.getItem("user")).email
+          console.log("Submitting this data", title,desc,email)
+          let response = await postData("/addnote", {title,desc,email})
+          if(response.success){
+              alert("Note created.")
+              document.getElementById("title").value = ""
+              document.getElementById("desc").value = ""
+              fetchNotes()
+          }
+      })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <!-- <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+    <title>Signup | NotesBook - A Simple notebook app</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" style="  overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">MyNotesBook</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+            <div class="d-flex" role="search">
+              <a href="/login"><button class="btn btn-primary mx-2" type="submit">Login</button></a>
+              <a href="/signup"> <button class="btn btn-btn-primary mx-2" type="submit">Signup</button></a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">  
+        <h1 class="my-4">Signup!</h1>
+        <div>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name">           
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" id="password" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" id="password">
+              <i class="bi bi-eye-slash" id="togglePassword" onclick="myFunction()"></i>
+              <!-- <i class="far fa-eye" id="togglePassword" style="margin-right: -30px; cursor: pointer;"></i> -->
+              <!-- An element to toggle between password visibility -->
+              <!-- <input type="checkbox" class="mx-2 my-2" onclick="myFunction()">Show Password -->
+            </div>
+
+            <div class="content">
+              <p>Password must contains</p>
+              <ul class="requirement-list">
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 8 characters length</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 1 number (0...9)</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 1 lowercase letter (a...z)</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 1 special symbol (!...$)</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 1 uppercase letter (A...Z)</span>
+                </li>
+              </ul>
+            </div>
+
+            <button id="submit" type="submit" class="btn btn-primary">Signup</button>
+        </div>
+        <p>Already have an account?<a href="/login">Login</a></p>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ 
+    <script>
+      // const bcrypt = require('bcrypt')
+
+        async function postData(url = '', data = {}) {
+            // Default options are marked with
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            let rdata = await response.json();
+            console.log("created user")
+            console.log(rdata)
+            return rdata
+        }
+
+      function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+    }
+
+    // const togglePassword = document.querySelector("#togglePassword");
+    //     const password = document.querySelector("#password");
+    //     password.classList.remove("bi-eye-slash")
+    //     togglePassword.addEventListener("click", function () {
+    //         // toggle the type attribute
+    //         const type = password.getAttribute("type") === "password" ? "text" : "password";
+    //         password.setAttribute("type", type);
+            
+    //         // toggle the icon
+    //         this.classList.toggle("bi-eye");
+    //     });
+
+const passwordInput = document.getElementById("password");
+const eyeIcon = document.querySelector(".togglePassword");
+const requirementList = document.querySelectorAll(".requirement-list li");
+
+// An array of password requirements with corresponding 
+// regular expressions and index of the requirement list item
+const requirements = [
+    { regex: /.{8,}/, index: 0 }, // Minimum of 8 characters
+    { regex: /[0-9]/, index: 1 }, // At least one number
+    { regex: /[a-z]/, index: 2 }, // At least one lowercase letter
+    { regex: /[^A-Za-z0-9]/, index: 3 }, // At least one special character
+    { regex: /[A-Z]/, index: 4 }, // At least one uppercase letter
+]
+
+passwordInput.addEventListener("keyup", (e) => {
+    requirements.forEach(item => {
+        // Check if the password matches the requirement regex
+        const isValid = item.regex.test(e.target.value);
+        const requirementItem = requirementList[item.index];
+
+        // Updating class and icon of requirement item if requirement matched or not
+        if (isValid) {
+            requirementItem.classList.add("valid");
+            requirementItem.firstElementChild.className = "fa-solid fa-check";
+        } else {
+            requirementItem.classList.remove("valid");
+            requirementItem.firstElementChild.className = "fa-solid fa-circle";
+        }
+    });
+});
+
+        let submit = document.getElementById("submit")
+        submit.addEventListener("click", async ()=>{
+            let name = document.getElementById("name").value 
+            let email = document.getElementById("email").value 
+            let password = document.getElementById("password").value
+            // console.log("Submitting this data", password, email)
+            let response = await postData("/signup",{name: name, email: email, password: password})
+            console.log(response)
+            if(response.success){
+                alert(response.message)
+                window.location = 'signup'
+                document.getElementById("name").value = ""
+                document.getElementById("email").value = ""
+                document.getElementById("password").value = ""
+            } else {
+              alert(response.message)
+            }
+        })
+        </script>
+
+    </body>
+</html>
